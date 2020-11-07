@@ -1,0 +1,7 @@
+consumption<-read.table("household_power_consumption.txt", sep=";", header = T)
+feb2_consumption<-subset(consumption, as.Date(Date, format="%d/%m/%Y")>=as.Date("01/02/2007", format="%d/%m/%Y") & as.Date(Date, format="%d/%m/%Y")<=as.Date("02/02/2007", format="%d/%m/%Y"))
+feb2_consumption$TotalDate<-paste(feb2_consumption$Date, feb2_consumption$Time, sep=" ")
+feb2_consumption$TotalDate <- dmy_hms(as.character(feb2_consumption$TotalDate))
+png(filename = "plot2.png")
+plot(feb2_consumption$TotalDate, as.numeric(feb2_consumption$Global_active_power), type = "l", pch = 19, xlab=" ", ylab = "Global active power (Kilowatts)")
+dev.off()
